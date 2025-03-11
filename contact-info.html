@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#"><img src="assets/images/3843.png" alt="Logo" height="60"></a>
             <a href="index.html" class="me-3">Home</a>
@@ -20,7 +20,7 @@
             <a href="contact-info.html">Help</a>
             <form class="d-flex ms-auto">
                 <input class="form-control me-2" type="search" placeholder="Search">
-                <button class="btn btn-warning" type="submit">Search</button>
+                <button class="btn" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -34,7 +34,7 @@
                     <form id="feedbackForm">
                         <div class="form-group">
                             <label for="feedbackText">Feedback*</label>
-                            <textarea class="form-control" id="feedbackText" rows="5" placeholder="Type here..."></textarea>
+                            <textarea class="form-control" id="feedbackText" rows="5" placeholder="Type here..." id="feedbackTextArea"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="name">Name*</label>
@@ -48,9 +48,23 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-warning">Submit Feedback</button>
+                <button type="submit" class="btn btn-primary fw-bold">Submit Feedback</button>
             </div>
         </div>
+
+        <hr>
+
+        <div class="help-section mt-2 text-center">
+            <h2 class="help-text">Help</h2>
+            <p>For any assistance, feel free to contact us.</p>
+            <p><b>Our Office:</b> <i>856 Sapphire Street, Brgy. San Antonio, Ortigas Center, Pasig City, 1605, Metro Manila, Philippines</i></p>
+        </div>
     </div>
+
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 Martinez, Medina</p>
+    </footer>
+
+    
 </body>
 </html>

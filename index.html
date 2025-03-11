@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#"><img src="assets/images/3843.png" alt="Logo" height="60"></a>
             <a href="index.html" class="me-3">Home</a>
@@ -20,7 +20,7 @@
             <a href="contact-info.html">Help</a>
             <form class="d-flex ms-auto">
                 <input class="form-control me-2" type="search" placeholder="Search">
-                <button class="btn btn-warning" type="submit">Search</button>
+                <button class="btn" type="submit">Search</button>
             </form>
         </div>
     </nav>
@@ -36,75 +36,124 @@
             </div>
             <div class="col-md-4 text-center">
                 <div class="fw-bold bg-black text-white p-2">LEAVING FROM:</div>
-                <select class="form-select mb-3 bg-info text-center" id="leavingFrom">
-                    <option>North Ave.</option>
-                    <option>Quezon Ave.</option>
-                    <option>Kamuning</option>
-                    <option>Cubao</option>
-                    <option>Santolan</option>
-                    <option>Ortigas</option>
-                    <option>Shaw Blvd.</option>
-                    <option>Boni</option>
-                    <option>Guadalupe</option>
-                    <option>Buendia</option>
-                    <option>Ayala</option>
-                    <option>Magallanes</option>
-                    <option>Taft</option>
+                <select class="form-select mb-3 station-form" id="leavingFrom">
+                  <option>North Ave.</option>
+                  <option>Quezon Ave.</option>
+                  <option>Kamuning</option>
+                  <option>Cubao</option>
+                  <option>Santolan</option>
+                  <option>Ortigas</option>
+                  <option>Shaw Blvd.</option>
+                  <option>Boni</option>
+                  <option>Guadalupe</option>
+                  <option>Buendia</option>
+                  <option>Ayala</option>
+                  <option>Magallanes</option>
+                  <option>Taft</option>
                 </select>
                 <div class="fw-bold bg-black text-white p-2 mt-3">GOING TO:</div>
-                <select class="form-select bg-info text-center" id="goingTo">
-                    <option>Taft</option>
-                    <option>Magallanes</option>
-                    <option>Ayala</option>
-                    <option>Buendia</option>
-                    <option>Guadalupe</option>
-                    <option>Boni</option>
-                    <option>Shaw Blvd.</option>
-                    <option>Ortigas</option>
-                    <option>Santolan</option>
-                    <option>Cubao</option>
-                    <option>Kamuning</option>
-                    <option>Quezon Ave.</option>
-                    <option>North Ave.</option>
+                <select class="form-select station-form" id="goingTo">
+                  <option>North Ave.</option>
+                  <option>Quezon Ave.</option>
+                  <option>Kamuning</option>
+                  <option>Cubao</option>
+                  <option>Santolan</option>
+                  <option>Ortigas</option>
+                  <option>Shaw Blvd.</option>
+                  <option>Boni</option>
+                  <option>Guadalupe</option>
+                  <option>Buendia</option>
+                  <option>Ayala</option>
+                  <option>Magallanes</option>
+                  <option>Taft</option>
                 </select>
                 <div class="mt-3">
-                    <button class="btn btn-outline-primary" id="regularBtn">Regular Fare</button>
-                    <button class="btn btn-outline-info" id="discountedBtn">Discounted Fare</button>
+                  <button class="btn btn-outline-primary" id="regularBtn">Regular Fare</button>
+                  <button class="btn btn-outline-info" id="discountedBtn">Discounted Fare</button>
                 </div>
-            </div>
-            <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
                 <div class="fare-box text-center p-3" id="fare">
-                    <div class="text-white fw-bold">Ticket Price:</div>
-                    <div class="fs-1">28.00</div>
+                  <div class="fw-bold">Ticket Price:</div>
+                  <div class="fs-1" id="fareAmount">0.00</div>
                 </div>
+              </div>
             </div>
-        </div>
-        <div class="text-center">
-            <img src="assets/images/SINGLE.png" alt="Train Ticket" class="img-fluid" width="200" id="trainTicket">
-        </div>
-    </div>
+            <div class="text-center">
+              <img src="assets/images/SINGLE.png" alt="Train Ticket" class="img-fluid" width="200" id="trainTicket">
+            </div>
+          </div>
+        
+          <script>
+            const fareAmountElement = document.getElementById('fareAmount');
+            const regularFareButton = document.getElementById('regularBtn');
+            const discountedFareButton = document.getElementById('discountedBtn');
+        
+            function calculateRegularFare() {
+                let fromStation = document.getElementById('leavingFrom').value;
+                let toStation = document.getElementById('goingTo').value;
 
-    <script>
-        function calculateFare(type) {
-            let regularFare = 28.00;
-            let discountedFare = regularFare * 0.8;
+                if (fromStation === toStation) {
+                  fareAmountElement.textContent = "Cannot select the same station.";
+                  return;
+                }
 
-            let fareElement = document.querySelector("#fare .fs-1"); 
+                const goingToSelect = document.getElementById('goingTo');
+                const options = goingToSelect.querySelectorAll('option');
+                const stations = Array.from(options).map(option => option.text);
 
-            if (type === "regular") {
-                fareElement.textContent = regularFare.toFixed(2);
-            } else if (type === "discounted") {
-                fareElement.textContent = discountedFare.toFixed(2);
+                let fromIndex = stations.indexOf(fromStation);
+                let toIndex = stations.indexOf(toStation);
+
+                let numStops = Math.abs(toIndex - fromIndex);
+
+                let fare = 0;
+
+                switch (numStops) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    fare = 13;
+                    break;
+                    case 3:
+                    case 4:
+                    fare = 16;
+                    break;
+                    case 5:
+                    case 6:
+                    case 7:
+                    fare = 20;
+                    break;
+                    case 8:
+                    case 9:
+                    case 10:
+                    fare = 24;
+                    break;
+                    default:
+                    fare = 28;
+                    break;
+                }
+
+                console.log(fromStation, toStation, numStops, fare); // Debugging output
+
+                return fare;
             }
-        }
-
-        document.getElementById("regularBtn").onclick = function() {
-            calculateFare("regular");
-        };
-
-        document.getElementById("discountedBtn").onclick = function() {
-            calculateFare("discounted");
-        };
-    </script>
+        
+            regularFareButton.addEventListener('click', function() {
+              let regularFare = calculateRegularFare();
+              fareAmountElement.textContent = regularFare.toFixed(2);
+            });
+        
+            discountedFareButton.addEventListener('click', function() {
+              let regularFare = calculateRegularFare();
+        
+              if (regularFare >= 13 && regularFare <= 28) {
+                let discountedFare = regularFare * 0.8;
+                fareAmountElement.textContent = discountedFare.toFixed(2);
+              } else {
+                alert("Please select a station.");
+              }
+            });
+          </script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 body {
-    background-color: #d0f0f5;
+    background-color: #F4F4F4;
     font-family: 'Chakra Petch', sans-serif;
 }
 
 .navbar {
-    background-color: #e3f2fd;
+    background-color: #1E90FF;
 }
 
 .navbar a {
@@ -13,8 +13,9 @@ body {
     font-weight: bold;
 }
 
-.navbar .btn-warning {
-    color: black;
+.navbar .btn {
+    background-color: white;
+    color: #1E90FF;
     font-weight: bold;
 }
 
@@ -56,11 +57,16 @@ body {
     margin-right: 200px;
 }
 
-.social-icon {
-    text-decoration: none;
-    margin-right: 10px;
+.help-text {
+    text-align: center;
     font-weight: bold;
-    color: #007bff;
+    font-size: 24px;
+    background: black;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
 }
 
 #feedbackForm {
